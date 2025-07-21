@@ -22,6 +22,10 @@ $posts = $stmt->fetchAll();
                 <p><?= nl2br(htmlspecialchars($post['content'])) ?></p>
                 <a href="edit.php?id=<?= $post['id'] ?>">Edit</a> |
                 <a href="delete.php?id=<?= $post['id'] ?>">Delete</a>
+                <br>
+                <br>
+                <a href="logout.php">Logout</a>
+
             </li>
         <?php endforeach; ?>
     </ul>
