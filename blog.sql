@@ -1,5 +1,4 @@
 
-
 USE blog;
 
 CREATE TABLE users (
@@ -9,6 +8,8 @@ CREATE TABLE users (
 );
 
 CREATE TABLE posts (
+  user_id INT NOT NULL,
+
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,

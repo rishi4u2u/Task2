@@ -1,17 +1,29 @@
 <?php
-include 'auth.php';
-include 'db.php';
+session_start();
+require 'db.php';
 
-$result = $conn->query("SELECT * FROM posts ORDER BY created_at DESC");
-
-echo "<h2>Welcome, " . $_SESSION['user'] . "</h2>";
-echo "<a href='create.php'>Create Post</a> | <a href='logout.php'>Logout</a><hr>";
-
-while ($row = $result->fetch_assoc()) {
-    echo "<h3>{$row['title']}</h3>";
-    echo "<p>{$row['content']}</p>";
-    echo "<small>{$row['created_at']}</small><br>";
-    echo "<a href='edit.php?id={$row['id']}'>Edit</a> | ";
-    echo "<a href='delete.php?id={$row['id']}'>Delete</a><hr>";
-}
+$stmt = $pdo->prepare("SELECT * FROM posts WHERE user_id = ?");
+$stmt->execute([$_SESSION['user_id']]);
+$posts = $stmt->fetchAll();
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User's Posts</title>
+</head>
+<body>
+    <h1>Your Blog Posts</h1>
+    <a href="create.php">Create New Post</a>
+    <ul>
+        <?php foreach ($posts as $post): ?>
+            <li>
+                <h2><?= htmlspecialchars($post['title']) ?></h2>
+                <p><?= nl2br(htmlspecialchars($post['content'])) ?></p>
+                <a href="edit.php?id=<?= $post['id'] ?>">Edit</a> |
+                <a href="delete.php?id=<?= $post['id'] ?>">Delete</a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</body>
+</html>
