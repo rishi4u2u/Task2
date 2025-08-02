@@ -26,6 +26,7 @@ This is a PHP-based CRUD (Create, Read, Update, Delete) web application develope
 ## 🔐 Features
 
 - User Registration & Login
+- Include Searching and Pagination
 - Password Hashing (using `password_hash`)
 - Session Management
 - Role-Based Access Control
